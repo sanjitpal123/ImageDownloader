@@ -1,11 +1,10 @@
-
-import axios from "axios";
 import AxiosInstance from "../Helper/axiosinstance";
+
 async function FetchingList(Page) {
     try {
         const response = await AxiosInstance.get('/photos', {
             params: {
-                page:Page ,
+                page: Page,
                 per_page: 40
             }
         });
