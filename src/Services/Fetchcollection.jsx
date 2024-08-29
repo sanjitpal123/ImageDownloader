@@ -1,4 +1,4 @@
-import AxiosInstance from "../Helper/axiosinstance";
+import AxiosInstance from "../Helper/Axiosinstance"
 
 async function FetchingList(Page) {
     try {
