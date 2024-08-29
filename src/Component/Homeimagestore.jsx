@@ -1,9 +1,12 @@
 import { useQuery } from "react-query";
 import FetchingList from "../Services/Fetchcollection";
 import { useState } from "react";
+import {useNavigate} from "react-router-dom"
 
 function Collection() {
+  const Navigator=useNavigate();
     const [Page , setPage]=useState(1)
+   
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["List", Page],
     queryFn: () => FetchingList(Page),
@@ -18,6 +21,10 @@ function Collection() {
   if (isError) {
     return <div>Error: {error.message}</div>;
   }
+  function GoingTogetSingleimg(id)
+  {
+    Navigator(`/photo/${id}`);
+  }
 
   return (
     <div className="w-full mt-[60px] flex flex-col items-center justify-center">
@@ -27,7 +34,7 @@ function Collection() {
           <div
             key={item.id}
             className="w-full sm:w-[48%] md:w-[45%] lg:w-[31%] xl:w-[23%] 2xl:w-[20%] mx-1 my-2"
-          >
+           onClick={()=>GoingTogetSingleimg(item.id)}>
             <img
               src={item.urls.regular}
               className="w-full h-full object-cover"
