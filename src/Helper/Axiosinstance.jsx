@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AccessKey } from "./AccessKey";
+import AccessKey from "./Accesskey"
 
 console.log("Access Key:", AccessKey);
 
