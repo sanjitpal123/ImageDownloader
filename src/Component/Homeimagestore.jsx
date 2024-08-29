@@ -20,19 +20,25 @@ function Collection() {
   }
 
   return (
-    <div className="w-full left-0 right-0 flex flex-col items-center justify-center ">
-      <div className="w-[90%]  flex flex-wrap ">
-        {Array.isArray(data) &&
-          data.map((item) => (
-            <div key={item.id} className="w-[32%] mx-1 my-2 max-h-[60vh]">
-              <img
-                src={item.urls.regular}
-                className="w-full h-full object-cover"
-                alt={item.alt_description || "Image"}
-              />
-            </div>
-          ))}
-      </div>
+    <div className="w-full mt-[60px] flex flex-col items-center justify-center">
+    <div className="w-full flex flex-wrap justify-center">
+      {Array.isArray(data) &&
+        data.map((item) => (
+          <div
+            key={item.id}
+            className="w-full sm:w-[48%] md:w-[45%] lg:w-[31%] xl:w-[23%] 2xl:w-[20%] mx-1 my-2"
+          >
+            <img
+              src={item.urls.regular}
+              className="w-full h-full object-cover"
+              alt={item.alt_description || 'Image'}
+            />
+          </div>
+        ))}
+    </div>
+  
+  
+  
       <div className="  w-full flex justify-center items-center">
         <div className="gap-4 flex   my-4">
           {" "}
