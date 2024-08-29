@@ -6,6 +6,7 @@ import AxiosInstance from "../Helper/Axiosinstance";
     const response = await AxiosInstance.get(`/photos/${id}`);
     console.log("single photo",response);
        return response;
+   
   }
   catch(error)
   {
