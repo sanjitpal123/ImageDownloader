@@ -48,7 +48,7 @@ function GetSinglePhoto() {
   }
 
   return (
-    <div className="flex flex-col items-center p-4 mt-[50px] lg:p-8">
+    <div className="flex flex-col items-center  justify-center p-4 mt-[50px] lg:p-8">
       <div className="flex flex-col lg:flex-row lg:w-[82%] w-full md:w-[90%] flex-wrap mt-8 gap-6">
         <div className="lg:w-[48%] w-full h-[50vh]">
           <img

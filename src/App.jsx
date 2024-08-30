@@ -9,9 +9,10 @@ import { Routes } from "react-router-dom";
 import Collection from "./Component/Homeimagestore";
 import SharedCom from "./SharedComponent/Shared";
 import GetSinglePhoto from "./Component/GetSinglePhoto";
-
+import Provider from "./Store/Contextapi";
 function App() {
   return (
+    <Provider>
     <BrowserRouter>
     <Routes>
       <Route path="/" element={<SharedCom />}>
@@ -20,6 +21,7 @@ function App() {
       </Route>
     </Routes>
     </BrowserRouter>
+    </Provider>
   );
 }
 

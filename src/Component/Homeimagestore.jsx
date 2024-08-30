@@ -1,15 +1,25 @@
-import { useQuery } from "react-query";
-import FetchingList from "../Services/Fetchcollection";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useQuery } from 'react-query';
+import FetchingList from '../Services/Fetchcollection';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { MyContext } from '../Store/Contextapi';
+import FetchingSearchData from '../Services/FetchingSearchCollection';
 
 function Collection() {
   const Navigator = useNavigate();
   const [Page, setPage] = useState(1);
+  const { Query } = useContext(MyContext);
+
+  // Query key and function based on Query value
+  const queryKey = Query === null ? ['List', Page] : ['Search', Query, Page];
+  const queryFn = Query === null
+    ? () => FetchingList(Page)
+    : () => FetchingSearchData(Query, Page);
 
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["List", Page],
-    queryFn: () => FetchingList(Page),
+    queryKey,
+    queryFn,
     cacheTime: 1000 * 60 * 20,
     staleTime: 1000 * 60 * 20,
   });
@@ -22,8 +32,22 @@ function Collection() {
     return <div>Error: {error.message}</div>;
   }
 
-  function GoingTogetSingleimg(id) {
-    Navigator(`/photo/${id}`);
+  console.log(data)
+  function GoingTogetSingleimg(item) {
+    let id;
+    if(Query!==null)
+    {
+      id=item.cover_photo?.id;
+    }
+    else{
+      id=item.id
+    }
+    
+    if (id) {
+      Navigator(`/photo/${id}`);
+    } else {
+      console.error("ID not found for item", item);
+    }
   }
 
   return (
@@ -32,14 +56,14 @@ function Collection() {
         {Array.isArray(data) &&
           data.map((item) => (
             <div
-              key={item.id}
+              key={item.id || item.cover_photo?.id}
               className="cursor-pointer overflow-hidden rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform duration-300"
-              onClick={() => GoingTogetSingleimg(item.id)}
+              onClick={() => GoingTogetSingleimg(item)} // Pass the entire item to handle different structures
             >
               <img
-                src={item.urls.regular}
+                src={item.urls?.regular || item.cover_photo?.urls?.regular || 'fallback-image-url.jpg'} // Use fallback if needed
                 className="w-full h-full object-cover"
-                alt={item.alt_description || "Image"}
+                alt={item.alt_description || 'Image'}
               />
             </div>
           ))}
