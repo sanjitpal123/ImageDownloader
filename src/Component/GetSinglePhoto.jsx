@@ -72,7 +72,7 @@ let text=''
             <div className="bg-yellow-500 text-black font-bold w-[140px] h-[40px] flex justify-center items-center rounded-lg mb-4">
               Total likes: {data.data.likes}
             </div>
-            <div className="bg-yellow-500 text-black font-bold w-[190px] h-[40px] flex justify-center items-center rounded-lg mb-4">
+            <div className="bg-yellow-500 text-black font-bold mi-w-[190px] h-[40px] flex justify-center items-center rounded-lg mb-4">
               Total downloads: {data.data.downloads}
             </div>
             <div className="mb-4">
