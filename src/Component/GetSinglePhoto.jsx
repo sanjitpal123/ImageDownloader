@@ -36,7 +36,16 @@ useEffect(()=>{
     slugresult.push(data.data.alternative_slugs[i]);
     slugkey.push(i);
   }
+let text=''
+  for (let i in data.data.alternative_slugs)
+  {
+    if(Language===i)
+    {
+       text+=data.data.alternative_slugs[i]
+    }
 
+  }
+  
 
   return (
     <div className="flex flex-col items-center p-4 lg:p-8">
@@ -84,6 +93,9 @@ useEffect(()=>{
                   </option>
                 ))}
               </select>
+            </div>
+            <div>
+              <p>{text.split('-').join(' ')}</p>
             </div>
           </div>
         </div>
