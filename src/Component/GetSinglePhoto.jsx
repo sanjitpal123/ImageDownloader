@@ -16,43 +16,58 @@ function GetSinglePhoto() {
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error: {error.message}</div>;
+
   function GoingTogetSingleimg(id) {
     Navigator(`/photo/${id}`);
   }
 
   return (
-    <>
-      <div className="w-full flex justify-center">
-        <div className="flex lg:w-[82%] w-full md:w-[90%] flex-wrap mt-[65px]">
-          <div className="lg:w-[48%] w-full mx-1 lg:mx-2 lg:my-4 h-[50vh]">
-            {" "}
+    <div className="flex flex-col items-center p-4 lg:p-8">
+      <div className="flex flex-col lg:flex-row lg:w-[82%] w-full md:w-[90%] flex-wrap mt-8 gap-6">
+        <div className="lg:w-[48%] w-full h-[50vh]">
+          <img
+            src={data?.data?.urls?.regular}
+            alt={data?.data?.alt_description || "Image"}
+            className="w-full h-full object-cover rounded-lg shadow-lg"
+          />
+        </div>
+        <div className="info w-full lg:w-[45%]">
+          <div className="flex items-center gap-4 font-bold text-xl mb-4">
             <img
-              src={data?.data?.urls?.regular}
-              alt={data?.data?.alt_description || "Image"}
-              className="w-full h-full object-cover "
+              src={data.data.user.profile_image.medium}
+              className="w-[60px] h-[60px] rounded-full"
+              alt={`${data.data.user.first_name} ${data.data.user.last_name}`}
             />
+            <div>
+              {data.data.user.first_name} {data.data.user.last_name}
+            </div>
           </div>
-          <div className="info w-full lg:w-[45%] lg:mx-2 lg:my-4 ">
-            <div className="w-full   text-1xl flex  rounded-[20px] items-center gap-2 font-bold">
-            
-              <img src={data.data.user.profile_image.medium} className="w-[60px] h-[60px] rounded-full"/>
-             
-              <div className="text-white mt-5">
-                <span>{data.data.user.first_name}  {data.data.user.last_name}</span>
-                <div className="text-[14px] font-semibold">{data.data.user.bio}</div>
-              </div>
-              <div />
+          <div className="text-white">
+            <div className="bg-yellow-500 text-black font-bold w-[140px] h-[40px] flex justify-center items-center rounded-lg mb-4">
+              Total likes: {data.data.likes}
+            </div>
+            <div className="bg-yellow-500 text-black font-bold w-[190px] h-[40px] flex justify-center items-center rounded-lg mb-4">
+              Total downloads: {data.data.downloads}
+            </div>
+            <div className="mb-4">
+              <label htmlFor="Language" className="mr-2">Choose Language:</label>
+              <select id="Language" name="Language" className="p-2 rounded-lg border">
+                <option value="English">English</option>
+                <option value="Spanish">Spanish</option>
+                <option value="French">French</option>
+              </select>
             </div>
           </div>
         </div>
       </div>
-      <div className="w-full flex flex-wrap item justify-center">
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-8 w-full lg:w-[82%] md:w-[90%] p-2">
         {Array.isArray(data?.data?.related_collections?.results) &&
           data.data.related_collections.results.map((result) =>
             result.preview_photos.map((photo) => (
               <div
                 key={photo.id}
-                className="w-full sm:w-[48%] md:w-[45%] lg:w-[31%] xl:w-[23%] 2xl:w-[20%] mx-1 my-2"
+                className="cursor-pointer overflow-hidden rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform duration-300"
                 onClick={() => GoingTogetSingleimg(photo.id)}
               >
                 <img
@@ -64,7 +79,7 @@ function GetSinglePhoto() {
             ))
           )}
       </div>
-    </>
+    </div>
   );
 }
 
