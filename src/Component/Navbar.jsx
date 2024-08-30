@@ -1,15 +1,18 @@
 import { useContext } from 'react';
 import { MyContext } from "../Store/Contextapi";
 import { useNavigate } from 'react-router-dom';
+
 function Navbar() {
   const { SetQuery } = useContext(MyContext);
-  const Navigator=useNavigate()
-  function QuerySetFunction(event) {
-    if (event.key === 'Enter') {  // Corrected the key check
-      SetQuery(event.target.value);
-      event.target.value="";
-     Navigator('/')
+  const Navigator = useNavigate();
 
+  function handleSearchSubmit(event) {
+    event.preventDefault(); // Prevent default form submission
+    const input = event.target.querySelector('input');
+    if (input.value.trim()) {
+      SetQuery(input.value);
+      Navigator('/');
+      input.value = '';
     }
   }
 
@@ -19,14 +22,14 @@ function Navbar() {
         <a className="btn btn-ghost text-xl">daisyUI</a>
       </div>
       <div className="flex-none gap-2">
-        <div className="form-control">
+        <form onSubmit={handleSearchSubmit} className="form-control">
           <input
             type="text"
             placeholder="Search"
             className="input input-bordered w-24 md:w-auto"
-            onKeyDown={QuerySetFunction}  // Added onKeyDown handler
           />
-        </div>
+          <button type="submit" className="hidden">Search</button> {/* Hidden button for form submission */}
+        </form>
         <div className="dropdown dropdown-end">
           <div
             tabIndex={0}
