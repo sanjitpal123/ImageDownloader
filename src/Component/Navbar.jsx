@@ -7,7 +7,7 @@ function Navbar() {
   const Navigator = useNavigate();
 
   function handleSearchSubmit(event) {
-    event.preventDefault(); // Prevent default form submission
+    event.preventDefault(); 
     const input = event.target.querySelector('input');
     if (input.value.trim()) {
       SetQuery(input.value);
