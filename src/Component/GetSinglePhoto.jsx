@@ -8,11 +8,10 @@ function GetSinglePhoto() {
   const [Language, SetLanguage] = useState("en");
   const Navigator = useNavigate();
   const { id } = useParams();
-    
-useEffect(()=>{
-  console.log("Selected Language:", Language); 
-},[Language])
- 
+
+  useEffect(() => {
+    console.log("Selected Language:", Language);
+  }, [Language]);
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["single", id],
@@ -28,27 +27,28 @@ useEffect(()=>{
     Navigator(`/photo/${id}`);
   }
 
- 
-  
   let slugresult = [];
   let slugkey = [];
   for (let i in data.data.alternative_slugs) {
     slugresult.push(data.data.alternative_slugs[i]);
     slugkey.push(i);
   }
-let text=''
-  for (let i in data.data.alternative_slugs)
-  {
-    if(Language===i)
-    {
-       text+=data.data.alternative_slugs[i]
+  let text = "";
+  for (let i in data.data.alternative_slugs) {
+    if (Language === i) {
+      text += data.data.alternative_slugs[i];
     }
-
   }
-  
+  let Splitedtext = text.split("-");
+
+  console.log(Splitedtext);
+  let ExtractedText =[]
+  for (let i = 0; i < Splitedtext.length - 1; i++) {
+    ExtractedText.push(Splitedtext[i]);
+  }
 
   return (
-    <div className="flex flex-col items-center p-4 lg:p-8">
+    <div className="flex flex-col items-center p-4 mt-[50px] lg:p-8">
       <div className="flex flex-col lg:flex-row lg:w-[82%] w-full md:w-[90%] flex-wrap mt-8 gap-6">
         <div className="lg:w-[48%] w-full h-[50vh]">
           <img
@@ -64,7 +64,7 @@ let text=''
               className="w-[60px] h-[60px] rounded-full"
               alt={`${data.data.user.first_name} ${data.data.user.last_name}`}
             />
-            <div>
+            <div className="text-white">
               {data.data.user.first_name} {data.data.user.last_name}
             </div>
           </div>
@@ -72,30 +72,36 @@ let text=''
             <div className="bg-yellow-500 text-black font-bold w-[140px] h-[40px] flex justify-center items-center rounded-lg mb-4">
               Total likes: {data.data.likes}
             </div>
-            <div className="bg-yellow-500 text-black font-bold mi-w-[190px] h-[40px] flex justify-center items-center rounded-lg mb-4">
+            <div className="bg-yellow-500 text-black font-bold w-[210px] h-[40px] flex justify-center items-center rounded-lg mb-4">
               Total downloads: {data.data.downloads}
             </div>
-            <div className="mb-4">
-              <label htmlFor="Language" className="mr-2">
+            <div className="mb-4 cursor-pointer">
+              <label htmlFor="Language" className="mr-2 cursor-pointer">
                 Choose Language:
               </label>
               <select
                 id="Language"
                 name="Language"
-                className="px-2 py-1 rounded-lg border text-black"
-                value={Language} 
-                onChange={(e) => SetLanguage(e.target.value)} 
-
+                className="px-2 py-1 rounded-lg border text-black cursor-pointer"
+                value={Language}
+                onChange={(e) => SetLanguage(e.target.value)}
               >
                 {slugkey.map((language) => (
-                  <option key={language} value={language}>
+                  <option
+                    key={language}
+                    value={language}
+                    className="cursor-pointer"
+                  >
                     {language}
                   </option>
                 ))}
               </select>
             </div>
-            <div>
-              <p>{text.split('-').join(' ')}</p>
+            <div >
+              <p>{ExtractedText.join(',').split(',').join(' ')}</p>
+            </div>
+            <div className="text-yellow-500">
+              <p>{data.data.description}</p>
             </div>
           </div>
         </div>
