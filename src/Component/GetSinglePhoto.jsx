@@ -2,10 +2,17 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import FetchSinglePhoto from "../Services/FetchSinglePhoto";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 function GetSinglePhoto() {
+  const [Language, SetLanguage] = useState("en");
   const Navigator = useNavigate();
   const { id } = useParams();
+    
+useEffect(()=>{
+  console.log("Selected Language:", Language); 
+},[Language])
+ 
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["single", id],
@@ -20,6 +27,16 @@ function GetSinglePhoto() {
   function GoingTogetSingleimg(id) {
     Navigator(`/photo/${id}`);
   }
+
+ 
+  
+  let slugresult = [];
+  let slugkey = [];
+  for (let i in data.data.alternative_slugs) {
+    slugresult.push(data.data.alternative_slugs[i]);
+    slugkey.push(i);
+  }
+
 
   return (
     <div className="flex flex-col items-center p-4 lg:p-8">
@@ -50,11 +67,22 @@ function GetSinglePhoto() {
               Total downloads: {data.data.downloads}
             </div>
             <div className="mb-4">
-              <label htmlFor="Language" className="mr-2">Choose Language:</label>
-              <select id="Language" name="Language" className="p-2 rounded-lg border">
-                <option value="English">English</option>
-                <option value="Spanish">Spanish</option>
-                <option value="French">French</option>
+              <label htmlFor="Language" className="mr-2">
+                Choose Language:
+              </label>
+              <select
+                id="Language"
+                name="Language"
+                className="px-2 py-1 rounded-lg border text-black"
+                value={Language} 
+                onChange={(e) => SetLanguage(e.target.value)} 
+
+              >
+                {slugkey.map((language) => (
+                  <option key={language} value={language}>
+                    {language}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
