@@ -36,6 +36,24 @@ function Collection() {
     Navigator(`/photo/${id}`);
   }
 
+  function downloadImage(url, filename) {
+    fetch(url, {
+      method: 'GET',
+      headers: {}
+    })
+      .then(response => response.blob())
+      .then(blob => {
+        const url = window.URL.createObjectURL(new Blob([blob]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', filename);
+        document.body.appendChild(link);
+        link.click();
+        link.parentNode.removeChild(link);
+      })
+      .catch(err => console.error('Error while downloading image:', err));
+  }
+
   return (
     <div className="w-full mt-[60px] p-4 lg:p-8 flex flex-col items-center justify-center">
       <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -51,13 +69,12 @@ function Collection() {
                 alt={item.alt_description || 'Image'}
                 onClick={() => GoingTogetSingleimg(item.id)} // Pass item.id here
               />
-              <a
-                href={item.urls?.full || item.cover_photo?.urls?.full} // Link to the full-size image
-                download={`image-${item.id}.jpg`} // Download the image with a specified filename
+              <button
+                onClick={() => downloadImage(item.urls?.full || item.cover_photo?.urls?.full, `image-${item.id}.jpg`)}
                 className="absolute bottom-2 right-2 bg-blue-500 text-white py-1 px-2 rounded-md text-sm hover:bg-blue-600 transition-colors"
               >
                 Download
-              </a>
+              </button>
             </div>
           ))}
       </div>
