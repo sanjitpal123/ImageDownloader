@@ -63,7 +63,7 @@ function Collection() {
           data.map((item) => {
             const id = item.id || item.cover_photo?.id;
             const isFav = favorites.has(id);
-            const heartClass = `absolute bottom-2  right-2 bg-white bg-opacity-75 rounded-full px-2 py-1 md:px-3 md:py-3 text-xl ${isFav ? 'text-red-500' : 'text-gray-500'}`;
+            const heartClass = `absolute bottom-2  right-2 bg-white bg-opacity-75 rounded-full px-2 py-1 md:px-3 md:py-3 pt-1 text-xl ${isFav ? 'text-red-500' : 'text-gray-500'}`;
             
             return (
               <div
