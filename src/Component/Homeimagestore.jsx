@@ -10,8 +10,8 @@ function Collection() {
   const Navigator = useNavigate();
   const [Page, setPage] = useState(1);
   const { Query } = useContext(MyContext);
+  const [favorites, setFavorites] = useState(new Set()); // Use a Set to store favorite IDs
 
-  // Query key and function based on Query value
   const queryKey = Query === null ? ['List', Page] : ['Search', Query, Page];
   const queryFn = Query === null
     ? () => FetchingList(Page)
@@ -32,21 +32,27 @@ function Collection() {
     return <div>Error: {error.message}</div>;
   }
 
-  console.log(data)
   function GoingTogetSingleimg(item) {
-    let id;
-    if(Query!==null)
-    {
-      id=item.cover_photo?.id;
-    }
-    else{
-      id=item.id
-    }
-    
+    let id = item.id || item.cover_photo?.id;
     if (id) {
       Navigator(`/photo/${id}`);
     } else {
-      console.error("ID not found for item", item);
+      console.error('ID not found for item', item);
+    }
+  }
+
+  function ToggleFav(item) {
+    const id = item.id || item.cover_photo?.id;
+    if (id) {
+      setFavorites(prev => {
+        const newFavorites = new Set(prev);
+        if (newFavorites.has(id)) {
+          newFavorites.delete(id); // Unfavorite if already favorited
+        } else {
+          newFavorites.add(id); // Favorite if not already favorited
+        }
+        return newFavorites;
+      });
     }
   }
 
@@ -54,19 +60,32 @@ function Collection() {
     <div className="w-full mt-[60px] p-4 lg:p-8 flex flex-col items-center justify-center">
       <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {Array.isArray(data) &&
-          data.map((item) => (
-            <div
-              key={item.id || item.cover_photo?.id}
-              className="cursor-pointer overflow-hidden rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform duration-300"
-              onClick={() => GoingTogetSingleimg(item)} // Pass the entire item to handle different structures
-            >
-              <img
-                src={item.urls?.regular || item.cover_photo?.urls?.regular || 'fallback-image-url.jpg'} // Use fallback if needed
-                className="w-full h-full object-cover"
-                alt={item.alt_description || 'Image'}
-              />
-            </div>
-          ))}
+          data.map((item) => {
+            const id = item.id || item.cover_photo?.id;
+            const isFav = favorites.has(id);
+            const heartClass = `absolute bottom-2 right-2 bg-white bg-opacity-75 rounded-full px-3 py-2 text-xl ${isFav ? 'text-red-500' : 'text-gray-500'}`;
+            
+            return (
+              <div
+                key={id}
+                className="cursor-pointer overflow-hidden rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform duration-300 relative"
+              >
+                <img
+                  src={
+                    item.urls?.regular ||
+                    item.cover_photo?.urls?.regular ||
+                    'fallback-image-url.jpg'
+                  }
+                  className="w-full h-full object-cover"
+                  alt={item.alt_description || 'Image'}
+                  onClick={() => GoingTogetSingleimg(item)}
+                />
+                <div className={heartClass} onClick={() => ToggleFav(item)}>
+                  <i className="fa-solid fa-heart"></i>
+                </div>
+              </div>
+            );
+          })}
       </div>
 
       <div className="w-full flex justify-center items-center mt-8">
