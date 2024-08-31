@@ -32,22 +32,8 @@ function Collection() {
     return <div>Error: {error.message}</div>;
   }
 
-  console.log(data)
-  function GoingTogetSingleimg(item) {
-    let id;
-    if(Query!==null)
-    {
-      id=item.cover_photo?.id;
-    }
-    else{
-      id=item.id
-    }
-    
-    if (id) {
-      Navigator(`/photo/${id}`);
-    } else {
-      console.error("ID not found for item", item);
-    }
+  function GoingTogetSingleimg(id) {
+    Navigator(`/photo/${id}`);
   }
 
   return (
@@ -56,15 +42,22 @@ function Collection() {
         {Array.isArray(data) &&
           data.map((item) => (
             <div
-              key={item.id || item.cover_photo?.id}
-              className="cursor-pointer overflow-hidden rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform duration-300"
-              onClick={() => GoingTogetSingleimg(item)} // Pass the entire item to handle different structures
+              key={item.id}
+              className="relative cursor-pointer overflow-hidden rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform duration-300"
             >
               <img
-                src={item.urls?.regular || item.cover_photo?.urls?.regular || 'fallback-image-url.jpg'} // Use fallback if needed
+                src={item.urls?.regular || item.cover_photo?.urls?.regular} // Use fallback if needed
                 className="w-full h-full object-cover"
                 alt={item.alt_description || 'Image'}
+                onClick={() => GoingTogetSingleimg(item.id)} // Pass item.id here
               />
+              <a
+                href={item.urls?.full || item.cover_photo?.urls?.full} // Link to the full-size image
+                download={`image-${item.id}.jpg`} // Download the image with a specified filename
+                className="absolute bottom-2 right-2 bg-blue-500 text-white py-1 px-2 rounded-md text-sm hover:bg-blue-600 transition-colors"
+              >
+                Download
+              </a>
             </div>
           ))}
       </div>
