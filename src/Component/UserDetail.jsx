@@ -66,8 +66,8 @@ function UserDetails() {
   return (
     <div className="min-h-[100vh] bg-black">
       <div className="bg-black min-h-[40vh]  w-full flex flex-wrap justify-center items-center">
-        <div className="w-full md:w-[40%] h-full mt-20 my-2 ">
-          <div className="flex items-center gap-2 sm:gap-3">
+        <div className="w-full lg:w-[40%]  h-full mt-20 my-2 ">
+          <div className="flex items-center  gap-2 sm:gap-3">
             <img
               src={data.user.profile_image.large}
               className="sm:h-[100px] sm:w-[100px] h-[60px] w-[60px] rounded-full object-cover"
@@ -122,7 +122,7 @@ function UserDetails() {
             )}
           </div>
         </div>
-        <div className=" w-full md:w-[60%]  h-full mt-10 sm:mt-20 ">
+        <div className=" w-full lg:w-[60%]  h-full mt-10 sm:mt-20 ">
           <select
             className="w-[50%] mx-2 md:w-[20%] flex gap-2 px-2 py-3 font-bold cursor-pointer flex-wrap"
             value={SelectItem}
