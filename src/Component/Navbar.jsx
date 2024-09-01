@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { MyContext } from "../Store/Contextapi";
 import { useNavigate } from 'react-router-dom';
 
+
 function Navbar() {
   const { SetQuery } = useContext(MyContext);
   const Navigator = useNavigate();
@@ -19,14 +20,14 @@ function Navbar() {
   return (
     <div className="navbar bg-black w-full z-[10] fixed left-0 top-0">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <a className="btn btn-ghost text-[12px] text-white sm:text-xl">ImgDownloader</a>
       </div>
-      <div className="flex-none gap-2">
+      <div className="flex-none gap-1">
         <form onSubmit={handleSearchSubmit} className="form-control">
           <input
             type="text"
             placeholder="Search"
-            className="input input-bordered w-24 md:w-auto"
+            className="input input-bordered w-24 h-8 sm:w-auto"
           />
           <button type="submit" className="hidden">Search</button> {/* Hidden button for form submission */}
         </form>

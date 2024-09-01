@@ -10,6 +10,7 @@ import Collection from "./Component/Homeimagestore";
 import SharedCom from "./SharedComponent/Shared";
 import GetSinglePhoto from "./Component/GetSinglePhoto";
 import Provider from "./Store/Contextapi";
+import UserDetails from "./Component/UserDetail";
 function App() {
   return (
     <Provider>
@@ -18,7 +19,8 @@ function App() {
       <Route path="/" element={<SharedCom />}>
         <Route index element={<Collection />} />
         <Route path="photo/:id" element={<GetSinglePhoto />} />
-      </Route>
+        <Route path="Userdetails" element={<UserDetails />} />
+        </Route>
     </Routes>
     </BrowserRouter>
     </Provider>
