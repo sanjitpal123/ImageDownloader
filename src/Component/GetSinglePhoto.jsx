@@ -4,6 +4,8 @@ import FetchSinglePhoto from "../Services/FetchSinglePhoto";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+
+
 function GetSinglePhoto() {
   const [Language, SetLanguage] = useState("en");
   const Navigator = useNavigate();
