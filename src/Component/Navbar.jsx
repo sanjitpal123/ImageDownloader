@@ -16,11 +16,14 @@ function Navbar() {
       input.value = '';
     }
   }
-
+function GotoHome()
+{
+Navigator('/')
+}
   return (
     <div className="navbar bg-black w-full z-[10] fixed left-0 top-0">
       <div className="flex-1">
-        <a className="btn btn-ghost text-[12px] text-white sm:text-xl">ImgDownloader</a>
+        <a className="btn btn-ghost text-[12px] text-white sm:text-xl" onClick={()=>GotoHome()}>ImgDownloader</a>
       </div>
       <div className="flex-none gap-1">
         <form onSubmit={handleSearchSubmit} className="form-control">
