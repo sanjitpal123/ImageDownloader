@@ -137,7 +137,7 @@ function UserDetails() {
               Social Media
             </button>
             {Clicked && (
-              <div className="bg-yellow-500  mt-1 p-2  ">
+              <div className="bg-yellow-500  mt-1 p-2 text-white ">
                 {data.user.social?.instagram_username && (
                   <div className="text-start font-bold rounded-md">
                     <a
