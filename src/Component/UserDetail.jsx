@@ -116,22 +116,26 @@ function UserDetails() {
             </div>
           )}
           <div className="flex flex-col w-[60%] mt-2 sm:w-[40%]">
-            {data.user?.total_collections && (
+            {data.user?.total_collections !== undefined && (
               <button className="mb-2 py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600">
-                Total Collection: {data.user.total_collections}
+                Total Collection: {data.user.total_collections || "N/A"}
               </button>
             )}
-            {data.user?.total_Photos &&<button className="mb-2 py-2 px-4 bg-green-500 text-white rounded hover:bg-green-600">
-              Total Photos: {data.user.total_Photos}
-            </button>}
-            {data.user?.total_likes&&<button className="mb-2 py-2 px-4 bg-red-500 text-white rounded hover:bg-red-600">
-              Total Likes: {data.user.total_likes}
-            </button>}
+            {data.user?.total_photos !== undefined && (
+              <button className="mb-2 py-2 px-4 bg-green-500 text-white rounded hover:bg-green-600">
+                Total Photos: {data.user.total_photos || "N/A"}
+              </button>
+            )}
+            {data.user?.total_likes !== undefined && (
+              <button className="mb-2 py-2 px-4 bg-red-500 text-white rounded hover:bg-red-600">
+                Total Likes: {data.user.total_likes || "N/A"}
+              </button>
+            )}
           </div>
 
           <div className="dropdown mt-2  w-[60%] sm:w-[40%]">
             <button
-              className="w-full  h-[50px] rounded-md bg-yellow-500 black font-bold"
+              className="w-full  h-[50px] rounded-md bg-yellow-500 text-white font-bold"
               onClick={HandleDropDown}
             >
               Social Media

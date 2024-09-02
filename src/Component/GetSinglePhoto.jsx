@@ -47,8 +47,9 @@ function GetSinglePhoto() {
   for (let i = 0; i < Splitedtext.length - 1; i++) {
     ExtractedText.push(Splitedtext[i]);
   }
+
   async function downloadfn(photo) {
-    const id = photo.id; // Use photo.id directly
+    const id = photo.id;
 
     if (!id) {
       console.error("ID not found for the item");
@@ -80,10 +81,20 @@ function GetSinglePhoto() {
     Navigator("/UserDetails", { state: { data } });
   }
 
+  const languageMap = {
+    "en": "English",
+    "es": "Spanish",
+    "ja": "Japanese",
+    "fr": "French",
+    "it": "Italian",
+    "ko": "Korean",
+    "de": "German",
+    "pt": "Portuguese"
+  };
   return (
-    <div className="flex flex-col items-center  justify-center p-4 mt-[50px] lg:p-8">
+    <div className="flex flex-col items-center justify-center p-4 mt-[50px] lg:p-8">
       <div className="flex flex-col lg:flex-row lg:w-[82%] w-full md:w-[90%] flex-wrap mt-8 gap-6">
-        <div className="lg:w-[48%] w-full max-h-[70vh]">
+        <div className="lg:w-[48%] w-full h-auto lg:max-h-[50vh]">
           <img
             src={data?.data?.urls?.regular}
             alt={data?.data?.alt_description || "Image"}
@@ -98,8 +109,10 @@ function GetSinglePhoto() {
               alt={`${data.data.user.first_name} ${data.data.user.last_name}`}
               onClick={() => PassingUserName(data.data)}
             />
-
-            <div className="text-white cursor-pointer"   onClick={() => PassingUserName(data.data)}>
+            <div
+              className="text-white cursor-pointer"
+              onClick={() => PassingUserName(data.data)}
+            >
               {data.data.user.first_name} {data.data.user.last_name}
             </div>
           </div>
@@ -127,7 +140,7 @@ function GetSinglePhoto() {
                     value={language}
                     className="cursor-pointer"
                   >
-                    {language}
+                    {languageMap[language] || language}
                   </option>
                 ))}
               </select>
@@ -159,7 +172,7 @@ function GetSinglePhoto() {
                 <div className="absolute bottom-2 left-1 flex items-center">
                   <button
                     onClick={(event) => {
-                      event.stopPropagation(); 
+                      event.stopPropagation();
                       downloadfn(photo);
                     }}
                     className="relative text-black bg-white px-2 py-1 rounded-full group"
