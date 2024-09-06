@@ -1,6 +1,6 @@
 import AxiosInstance from "../Helper/Axiosinstance";
 
-async  function FetchDownload (id)
+async  function FetchDownload ( id)
 {
   try{
     const response=await AxiosInstance.get(`/photos/${id}/download`)
