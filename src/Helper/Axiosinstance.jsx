@@ -3,7 +3,7 @@ import AccessKey from "./Accesskey"
 
 console.log("Access Key:", AccessKey);
 
-const AxiosInstance = axios.create({  
+const AxiosInstance = axios.create({   
     baseURL: "https://api.unsplash.com",
     headers: {
         Authorization: `Client-ID ${AccessKey}`
