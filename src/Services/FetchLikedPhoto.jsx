@@ -7,7 +7,7 @@ async function FetchLikedPhoto(username)
             page:1,
             per_page:34
         }
-    })
+    }) 
     console.log("total liked",response);
     return response;
 
