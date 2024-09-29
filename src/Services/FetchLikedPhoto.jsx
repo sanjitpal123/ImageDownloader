@@ -9,7 +9,7 @@ async function FetchLikedPhoto(username)
         }
     }) 
     console.log("total liked",response);
-    return response;
+    return response; 
 
   }catch(error)
   {
