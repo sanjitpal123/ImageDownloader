@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import FetchDownload from "../Services/FetchDownloadPhoto";
 
-function GetSinglePhoto() {
+function GetSinglePhoto() { 
   const [Language, SetLanguage] = useState("en");
   const Navigator = useNavigate();
   const { id } = useParams();
