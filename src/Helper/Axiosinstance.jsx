@@ -6,7 +6,7 @@ console.log("Access Key:", AccessKey);
 const AxiosInstance = axios.create({    
     baseURL: "https://api.unsplash.com", 
     headers: { 
-        Authorization: `Client-ID ${AccessKey}`
+        Authorization: `Client-ID ${AccessKey}` 
     }
 });
 
