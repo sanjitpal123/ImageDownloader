@@ -9,7 +9,7 @@ const AxiosInstance = axios.create({
         Authorization: `Client-ID ${AccessKey}` 
     }
 });
-
+ 
 AxiosInstance.interceptors.request.use(request => {
     console.log("Request Headers:", request.headers);
     return request;
