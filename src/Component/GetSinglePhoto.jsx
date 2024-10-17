@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import FetchSinglePhoto from "../Services/FetchSinglePhoto";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";   
-import FetchDownload from "../Services/FetchDownloadPhoto";
+import FetchDownload from "../Services/FetchDownloadPhoto"; 
 
 function GetSinglePhoto() { 
   const [Language, SetLanguage] = useState("en");
